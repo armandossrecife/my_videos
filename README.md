@@ -1,4 +1,4 @@
-# My Videos Downloader
+# My Video Downloader
 
 The prototype of Downloder application
 
