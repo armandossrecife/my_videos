@@ -1,6 +1,6 @@
 # My Video Downloader
 
-The prototype of Downloder application
+The prototype of Downloader application
 
 # Requirements
 
