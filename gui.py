@@ -13,7 +13,7 @@ class MainWindow:
         self.url_label = tk.Label(self.app, text="Enter YouTube video URL:")
         self.url_label.pack()
         self.url_entry = tk.Entry(self.app, width=50)
-        self.url_entry.pack()
+        self.url_entry.pack(padx=5, pady=5,fill = tk.BOTH)
         self.download_button = tk.Button(self.app, text="Download", command=self.download_video)
         self.download_button.pack()
         self.finish_label = tk.Label(self.app, text="")
@@ -22,9 +22,12 @@ class MainWindow:
         self.p_percentage.pack()
         self.progress_bar = tk.ttk.Progressbar(self.app, orient="horizontal", length=300, mode="determinate")
         self.progress_bar['value'] = 0
-        self.progress_bar.pack()
-        self.download_history_list = tk.Listbox(self.app, width=40, height=10)  # Use a Listbox for simplicity        
-        self.download_history_list.pack(padx=10, pady=10)
+        self.progress_bar.pack(padx=5, pady=5,fill = tk.BOTH)
+        self.scrollbar = tk.Scrollbar(self.app)
+        self.download_history_list = tk.Listbox(self.app, width=40, height=10, yscrollcommand=self.scrollbar.set)  # Use a Listbox for simplicity        
+        self.scrollbar.config(command = self.download_history_list.yview)
+        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.download_history_list.pack(padx=5, pady=5,fill=tk.BOTH, expand=True)
 
     def on_progress(self, stream, chunk, bytes_remaining):
         total_size = stream.filesize
@@ -49,6 +52,10 @@ class MainWindow:
     # Function to download a video
     def download_video(self):
         try:
+            url = self.url_entry.get()
+            if len(url) == 0:
+                raise ValueError('URL Vazia!')
+            print(self.download_history_list.get(0, tk.END))
             print('Faz o download...')
             self.progress_bar['value'] = 0
             self.progress_bar.update_idletasks()
@@ -56,13 +63,15 @@ class MainWindow:
             self.finish_label.update_idletasks()
             self.p_percentage.config(text='0%')
             self.p_percentage.update_idletasks()
-            url = self.url_entry.get()
             yt = YouTube(url, on_progress_callback=self.on_progress, on_complete_callback=self.on_complete)
             os.makedirs("videos", exist_ok=True)  # Create the "videos" folder if needed
             stream = yt.streams.get_highest_resolution()  # Or any other chosen stream
             stream.download(output_path="videos")
             # Add video to download history
             self.download_history_list.insert(tk.END, yt.title)
+        except ValueError as ve: 
+            print(f'Erro: {str(ve)}')
+            self.finish_label.config(text=f'{str(ve)}')
         except Exception as ex:
             print("Error:", ex)
             # Display error message to the user (optional)
