@@ -38,6 +38,10 @@ Here are the main features and requirements for a desktop application that downl
 
 # My Protype 
 
+## GUI Framework
+
+Tkinter (built-in with Python): Simple and beginner-friendly.
+
 ## Instalation
 
 - Ensure you have Python installed (https://www.python.org/downloads/).
@@ -47,7 +51,13 @@ Here are the main features and requirements for a desktop application that downl
 pip install pytube
 ```
 
-## GUI Framework
+## Run main application
 
-Tkinter (built-in with Python): Simple and beginner-friendly.
+```bash
+python3 main.py
+```
+![Main window](https://github.com/armandossrecife/my_videos/blob/main/main.png)
+
+
+
 
