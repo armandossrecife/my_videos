@@ -50,6 +50,9 @@ Tkinter (built-in with Python): Simple and beginner-friendly.
 ```bash
 pip install pytube
 ```
+- Ensure you have tkinter in your system
+
+Obs: Fix tkinter in your OS (Operating System): https://stackoverflow.com/questions/25905540/importerror-no-module-named-tkinter
 
 ## Run main application
 
